@@ -1,7 +1,8 @@
 ---
 applications:
 - name: basin-cf-snpaas-training
-  buildpack: https://github.com/cloudfoundry/java-buildpack
+  buildpacks:
+  - java_buildpack
   instances: 1
   memory: 2G
   disk_quota: 4G

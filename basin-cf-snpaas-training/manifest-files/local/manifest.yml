@@ -1,0 +1,13 @@
+---
+applications:
+- name: basin-cf-snpaas-training
+  buildpacks:
+  - java_buildpack
+  instances: 1
+  memory: 1024M
+  disk_quota: 1G
+  
+  routes:
+  - route: basin-cf-snpaas-training-local.dev.cf.private.springer.com
+  env:
+    JAVA_OPTS: -XX:ReservedCodeCacheSize=40M -XX:MaxMetaspaceSize=150M -Xmx700m -XX:+UseG1GC -Djdk.nio.maxCachedBufferSize=262144 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=40 -XX:+AggressiveOpts -XX:+UseStringDeduplication -Dspring.profiles.active=local

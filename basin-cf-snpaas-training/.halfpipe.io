@@ -10,6 +10,8 @@ tasks:
 - type: run
   name: build
   script: ./mvnw package
+  save_artifacts:
+  - target/basin-cf-snpaas-training-0.0.1-SNAPSHOT.jar
   docker:
     image: openjdk:8-jdk-stretch
 
