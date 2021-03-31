@@ -13,7 +13,7 @@ tasks:
   save_artifacts:
   - target/basin-cf-snpaas-training-0.0.1-SNAPSHOT.jar
   docker:
-    image: openjdk:8-jdk-stretch
+    image: openjdk:11-jdk-stretch
 
 - type: deploy-cf
   name: deploy-dev

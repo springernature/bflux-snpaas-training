@@ -67,7 +67,7 @@ jobs:
           registry_mirror:
             host: eu-mirror.gcr.io
           repository: openjdk
-          tag: 8-jdk-stretch
+          tag: 11-jdk-stretch
         type: registry-image
       inputs:
       - name: git
