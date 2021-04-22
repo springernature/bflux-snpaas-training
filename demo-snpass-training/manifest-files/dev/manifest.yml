@@ -11,4 +11,4 @@ applications:
   
 
   env:
-    JAVA_OPTS: -XX:ReservedCodeCacheSize=40M -XX:MaxMetaspaceSize=100M -Xmx1024m -XX:+UseG1GC -Djdk.nio.maxCachedBufferSize=262144 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=40 -XX:+AggressiveOpts -XX:+UseStringDeduplication 
+    JAVA_OPTS: -XX:ReservedCodeCacheSize=40M -XX:MaxMetaspaceSize=100M -Xmx1024m -XX:+UseG1GC -Djdk.nio.maxCachedBufferSize=262144 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=40 -XX:+AggressiveOpts -XX:+UseStringDeduplication

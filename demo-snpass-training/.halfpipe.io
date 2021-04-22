@@ -23,6 +23,3 @@ tasks:
   manual_trigger: true
   manifest: manifest-files/dev/manifest.yml
   deploy_artifact: build/distributions/demo-snpass-training.zip
-  notify_on_success: true
-  
-  
