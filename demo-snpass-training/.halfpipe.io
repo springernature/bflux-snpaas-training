@@ -19,7 +19,7 @@ tasks:
 - type: deploy-cf
   name: deploy-test
   api: ((cloudfoundry.api-snpaas))
-  space: bookservices-dev
+  space: bflux-training
   manual_trigger: true
   manifest: manifest-files/dev/manifest.yml
   deploy_artifact: build/distributions/demo-snpass-training.zip
