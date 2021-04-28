@@ -3,8 +3,8 @@ applications:
 - name: demo-snpass-training
   buildpack: https://github.com/cloudfoundry/java-buildpack
   instances: 1
-  memory: 2G
-  disk_quota: 4G
+  memory: 100MB
+  disk_quota: 1GB
   
   routes:
   - route: bookservices-test.springernature.app
