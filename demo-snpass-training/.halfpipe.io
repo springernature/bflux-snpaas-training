@@ -5,7 +5,7 @@ triggers:
 - type: git
   branch: master
   watched_paths:
-  - demo-snpass-training
+  -demo-snpass-training
   
 tasks:
 - type: run
