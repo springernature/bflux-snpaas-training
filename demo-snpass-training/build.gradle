@@ -8,16 +8,34 @@
 
 // Apply the java-library plugin to add support for Java Library
 apply plugin: 'application'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
 mainClassName = 'demo.spr.snpass.MainClass'
 
+
+
+group ' demo.spr.snpass'
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     mavenCentral() 
 }
-
+buildscript {
+    repositories {
+         mavenCentral()
+    }
+    ext {
+		spring_boot_version = '1.5.7.RELEASE'
+	}
+     dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.7.RELEASE")
+    }
+}
 dependencies {
+
+  compile('org.springframework.boot:spring-boot-starter',
+	    'org.springframework.boot:spring-boot-starter-web')
     // This dependency is exported to consumers, that is to say found on their compile classpath.
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
