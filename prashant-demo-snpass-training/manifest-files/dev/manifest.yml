@@ -1,6 +1,6 @@
 ---
 applications:
-- name: demo-snpass-training
+- name: prashant-demo-snpass-training
   buildpack: https://github.com/cloudfoundry/java-buildpack
   instances: 1
   memory: 1G
