@@ -1,0 +1,14 @@
+---
+applications:
+- name: demo-snpass-training
+  buildpack: https://github.com/cloudfoundry/java-buildpack
+  instances: 1
+  memory: 1G
+  disk_quota: 1G
+  
+  routes:
+  - route: prashant-demo.springernature.app
+  
+
+  env:
+    JAVA_OPTS: -XX:ReservedCodeCacheSize=40M -XX:MaxMetaspaceSize=100M -Xmx1024m -XX:+UseG1GC -Djdk.nio.maxCachedBufferSize=262144 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=40 -XX:+AggressiveOpts -XX:+UseStringDeduplication
