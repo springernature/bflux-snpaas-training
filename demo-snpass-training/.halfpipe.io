@@ -1,11 +1,13 @@
 team: production
 pipeline: demo-snpass-training-ani
 
+feature_toggles:
+- update-pipeline
+
 triggers:
 - type: git
-  branch: master
   watched_paths:
-  -demo-snpass-training
+  - demo-snpass-training
   
 tasks:
 - type: run
