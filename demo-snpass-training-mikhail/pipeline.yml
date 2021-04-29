@@ -1,13 +1,64 @@
+92 The handle is invalid.
 # Generated using halfpipe cli version 3.66.0
 jobs:
 - build_log_retention:
     minimum_succeeded_builds: 1
-  name: build
+  name: update
   plan:
   - attempts: 2
     get: git
     timeout: 15m
     trigger: true
+  - attempts: 2
+    config:
+      image_resource:
+        source:
+          password: ((halfpipe-gcr.private_key))
+          registry_mirror:
+            host: eu-mirror.gcr.io
+          repository: eu.gcr.io/halfpipe-io/halfpipe-auto-update
+          tag: latest
+          username: _json_key
+        type: registry-image
+      inputs:
+      - name: git
+      params:
+        CONCOURSE_PASSWORD: ((concourse.password))
+        CONCOURSE_TEAM: ((concourse.team))
+        CONCOURSE_URL: ((concourse.url))
+        CONCOURSE_USERNAME: ((concourse.username))
+        HALFPIPE_DOMAIN: halfpipe.io
+        HALFPIPE_FILE_PATH: .halfpipe.io
+        HALFPIPE_PROJECT: halfpipe-io
+        PIPELINE_NAME: demo-snpass-training-mikhail
+      platform: linux
+      run:
+        dir: git/demo-snpass-training-mikhail
+        path: update-pipeline
+    task: update
+    timeout: 15m
+  - attempts: 2
+    params:
+      bump: minor
+    put: version
+    timeout: 15m
+  serial: true
+- build_log_retention:
+    minimum_succeeded_builds: 1
+  name: build
+  plan:
+  - attempts: 2
+    in_parallel:
+      fail_fast: true
+      steps:
+      - get: git
+        passed:
+        - update
+      - get: version
+        passed:
+        - update
+        trigger: true
+    timeout: 15m
   - config:
       caches:
       - path: ../../../var/halfpipe/cache
@@ -21,6 +72,7 @@ jobs:
         type: registry-image
       inputs:
       - name: git
+      - name: version
       outputs:
       - name: artifacts-out
       params:
@@ -68,6 +120,7 @@ jobs:
           }
 
           export GIT_REVISION=`cat ../.git/ref`
+          export BUILD_VERSION=`cat ../../version/version`
 
           ./build.sh
           EXIT_STATUS=$?
@@ -103,9 +156,15 @@ jobs:
   name: deploy-test
   plan:
   - attempts: 2
-    get: git
-    passed:
-    - build
+    in_parallel:
+      fail_fast: true
+      steps:
+      - get: git
+        passed:
+        - build
+      - get: version
+        passed:
+        - build
     timeout: 15m
   - attempts: 2
     config:
@@ -136,6 +195,7 @@ jobs:
   - attempts: 2
     params:
       appPath: artifacts/demo-snpass-training-mikhail/build/distributions/demo-snpass-training-mikhail.zip
+      buildVersionPath: version/version
       cliVersion: cf6
       command: halfpipe-push
       gitRefPath: git/.git/ref
@@ -181,14 +241,13 @@ resource_types:
     username: _json_key
   type: registry-image
 resources:
-- check_every: 10m
-  name: git
+- name: git
   source:
     branch: master
     paths:
     - demo-snpass-training-mikhail
     private_key: ((halfpipe-github.private_key))
-    uri: git@github.com:springernature/bflux-snpaas-training.git
+    uri: ssh://git@github.com/springernature/bflux-snpaas-training.git
   type: git
 - check_every: 24h
   name: artifacts
@@ -197,6 +256,13 @@ resources:
     folder: production/demo-snpass-training-mikhail
     json_key: ((halfpipe-artifacts.private_key))
   type: gcp-resource
+- name: version
+  source:
+    bucket: ((halfpipe-semver.bucket))
+    driver: gcs
+    json_key: ((halfpipe-semver.private_key))
+    key: production-demo-snpass-training-mikhail
+  type: semver
 - check_every: 24h
   name: cf-snpaas-bflux-training
   source:
