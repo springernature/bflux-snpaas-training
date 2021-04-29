@@ -193,7 +193,7 @@ jobs:
     timeout: 15m
   - attempts: 2
     params:
-      appPath: artifacts/demo-snpass-training-basin/build/distributions/demo-snpass-training.zip
+      appPath: artifacts/demo-snpass-training-basin/build/distributions/demo-snpass-training-basin.zip
       buildVersionPath: version/version
       cliVersion: cf6
       command: halfpipe-push
