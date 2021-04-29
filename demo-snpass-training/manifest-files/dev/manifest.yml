@@ -7,8 +7,8 @@ applications:
   disk_quota: 1GB
   
   routes:
-  - route: bookservices-test.springernature.app
+  - route: demo-snpass-training-test.springernature.app
   
 
-  env:
-    JAVA_OPTS: -XX:ReservedCodeCacheSize=40M -XX:MaxMetaspaceSize=100M -Xmx1024m -XX:+UseG1GC -Djdk.nio.maxCachedBufferSize=262144 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=40 -XX:+AggressiveOpts -XX:+UseStringDeduplication
+#  env:
+#    JAVA_OPTS: -XX:ReservedCodeCacheSize=40M -XX:MaxMetaspaceSize=100M -Xmx1024m -XX:+UseG1GC -Djdk.nio.maxCachedBufferSize=262144 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=40 -XX:+AggressiveOpts -XX:+UseStringDeduplication
