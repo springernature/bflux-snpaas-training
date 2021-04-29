@@ -1,13 +1,13 @@
 ---
 applications:
-- name: demo-snpass-training
+- name: demo-snpass-training-mikhail
   buildpack: https://github.com/cloudfoundry/java-buildpack
   instances: 1
   memory: 512MB
   disk_quota: 1G
   
   routes:
-  - route: demo-snpass-training-test.springernature.app
+  - route: demo-snpass-training-mikhail-test.springernature.app
   
 
 #  env:
