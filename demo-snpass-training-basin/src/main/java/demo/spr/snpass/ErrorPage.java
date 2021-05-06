@@ -91,7 +91,13 @@ public final class ErrorPage {
             out.write("\n=============================================\n");
         } catch (final Exception e) {
             LOGGER.error("", e);
-            e.printStackTrace(new java.io.PrintWriter(out));
+            e.printStackTrace(new java.io.PrintWriter(out) {
+
+                @Override
+                public void println() {
+                    write('\n');
+                }
+            });
         }
 
     }
