@@ -1,4 +1,4 @@
-# Generated using halfpipe cli version 3.66.0
+# Generated using halfpipe cli version 3.69.3
 jobs:
 - build_log_retention:
     minimum_succeeded_builds: 1
@@ -142,16 +142,6 @@ jobs:
   serial: true
 - build_log_retention:
     minimum_succeeded_builds: 1
-  ensure:
-    attempts: 2
-    params:
-      cliVersion: cf6
-      command: halfpipe-cleanup
-      manifestPath: git/demo-snpass-training-basin/manifest-files/dev/manifest.yml
-      timeout: 1h
-    put: halfpipe-cleanup
-    resource: cf-snpaas-bflux-training
-    timeout: 1h
   name: deploy-test
   plan:
   - attempts: 2
@@ -196,31 +186,12 @@ jobs:
       appPath: artifacts/demo-snpass-training-basin/build/distributions/demo-snpass-training-basin.zip
       buildVersionPath: version/version
       cliVersion: cf6
-      command: halfpipe-push
+      command: halfpipe-all
       gitRefPath: git/.git/ref
       manifestPath: git/demo-snpass-training-basin/manifest-files/dev/manifest.yml
       testDomain: springernature.app
       timeout: 1h
-    put: halfpipe-push
-    resource: cf-snpaas-bflux-training
-    timeout: 1h
-  - attempts: 2
-    params:
-      cliVersion: cf6
-      command: halfpipe-check
-      manifestPath: git/demo-snpass-training-basin/manifest-files/dev/manifest.yml
-      timeout: 1h
-    put: halfpipe-check
-    resource: cf-snpaas-bflux-training
-    timeout: 1h
-  - attempts: 2
-    params:
-      cliVersion: cf6
-      command: halfpipe-promote
-      manifestPath: git/demo-snpass-training-basin/manifest-files/dev/manifest.yml
-      testDomain: springernature.app
-      timeout: 1h
-    put: halfpipe-promote
+    put: halfpipe-all
     resource: cf-snpaas-bflux-training
     timeout: 1h
   serial: true
@@ -236,7 +207,6 @@ resource_types:
   source:
     password: ((halfpipe-gcr.private_key))
     repository: eu.gcr.io/halfpipe-io/cf-resource-v2
-    tag: stable
     username: _json_key
   type: registry-image
 resources:
