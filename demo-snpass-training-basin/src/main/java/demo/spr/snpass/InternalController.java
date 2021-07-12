@@ -40,7 +40,10 @@ public class InternalController {
     /**
      * @return ResponseEntity
      */
-    @RequestMapping(value = INTERNAL_STATUS, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(
+            value = INTERNAL_STATUS,
+            method = RequestMethod.GET,
+            produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> status() {
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
@@ -76,7 +79,7 @@ public class InternalController {
      */
     class VersionInfo {
 
-        private String revision = System.getenv("GIT_REVISION");
+        private final String revision = System.getenv("GIT_REVISION");
 
         /**
          * @return String
